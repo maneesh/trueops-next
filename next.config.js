@@ -6,6 +6,9 @@ const nextConfig = {
 
   reactStrictMode: true,
   swcMinify: true,
+  images: {
+    domains: ['ik.imagekit.io'],
+  },
 
   // Uncoment to add domain whitelist
   // images: {

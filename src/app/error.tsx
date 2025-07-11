@@ -1,9 +1,9 @@
 'use client'; // Error components must be Client Components
 
 import * as React from 'react';
-import { RiAlarmWarningFill } from 'react-icons/ri';
 
 import TextButton from '@/components/buttons/TextButton';
+import Image from 'next/image';
 
 export default function Error({
   error,
@@ -21,10 +21,8 @@ export default function Error({
     <main>
       <section className='bg-white'>
         <div className='layout flex min-h-screen flex-col items-center justify-center text-center text-black'>
-          <RiAlarmWarningFill
-            size={60}
-            className='drop-shadow-glow animate-flicker text-red-500'
-          />
+          <Image src="/svg/warning.svg" width={25} height={25} alt="warning" />
+
           <h1 className='mt-8 text-4xl md:text-6xl'>
             Oops, something went wrong!
           </h1>
