@@ -28,9 +28,9 @@ async function getData() {
 
 
 
-export default async function TrainingPage() {
+// Training.tsx
+export default async function Training() {
   const sections = await getData();
-
   return (
     <>
       <NavBar />
@@ -40,3 +40,4 @@ export default async function TrainingPage() {
     </>
   );
 }
+
