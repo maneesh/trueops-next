@@ -1,62 +1,37 @@
-"use client";
+
 import React from 'react';
-
 import Contact from '@/components/contact/Contact';
-import axiosInstance from '@/lib/axios';
 
-
-// Section type
-type Section = {
-  name: string;
-  contents?: any;
-  [key: string]: any;
-};
-
-// State structure
-interface SectionsState {
-  header: any[];
-  Middle: any[];
-  lowerMiddle: any[];
-  footer: any[];
-}
-
-
-export default function TrueOpsContactPage() {
-  const [sections, setSections] = React.useState<SectionsState>({
-    header: [],
-    Middle: [],
-    lowerMiddle: [],
-    footer: []
-  });
-
+async function getData() {
   const domain = 'Truops.in';
   const page = 'Contact Us';
 
-  React.useEffect(() => {
-    const fetchPageData = async () => {
-      try {
-        const res = await axiosInstance.get('/static', {
-          params: { domain, page }
-        });
-
-        const all: Section[] = res.data.sections;
-        console.log("All data response in contact us ::::>", all);
-        // Set state by finding sections by name
-        setSections({
-          header: all.find(s => s.name === 'Header')?.contents || [],
-          Middle: all.find(s => s.name === 'Middle')?.contents || [],
-          lowerMiddle: all.find(s => s.name === 'LowerMiddle')?.contents || [],
-          footer: all.find(s => s.name === 'Footer')?.contents || [],
-        });
-      } catch (error) {
-        console.error('Error fetching TrueOps page data:', error);
-      }
-    };
-
-    fetchPageData();
-  }, []);
-
-  return (
-    <Contact sections={sections} />
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
+    {
+      cache: 'no-store',
+    },
   );
+  console.log("Contact page response ::::>", res);
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('API error response:', errorText);
+    throw new Error('Failed to fetch page data');
+  }
+
+  const data = await res.json();
+  const all = data?.sections ?? [];
+  console.log("All Response ::::>", all);
+  return {
+    header: all.find((s: any) => s.name === 'Header')?.contents || [],
+    Middle: all.find((s: any) => s.name === 'Middle')?.contents || [],
+    lowerMiddle: all.find((s: any) => s.name === 'LowerMiddle')?.contents || [],
+    footer: all.find((s: any) => s.name === 'Footer')?.contents || [],
+  };
+}
+
+export default async function TrueOpsContactPage() {
+  const sections = await getData();
+  console.log("All Section ::::>", sections);
+  return <Contact sections={sections} />;
 }
