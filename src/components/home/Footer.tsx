@@ -1,20 +1,36 @@
-'use client';
-
 import Image from 'next/image';
-import React from 'react';
 
-interface ContentItem {
-  type: 'text' | 'image';
-  data: string;
+async function getData() {
+  const domain = 'Truops.in';
+  const page = 'Footer';
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
+    {
+      cache: 'no-store',
+    },
+  );
+  // console.log("this is response from footer", res);
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('API error response:', errorText);
+    throw new Error('Failed to fetch page data');
+  }
+
+  const data = await res.json();
+  const all = data?.sections ?? [];
+  // console.log("All Response ::::>", all);
+  return {
+    footer: all.find((s: any) => s.name === 'Footer')?.contents || []
+  };
 }
 
-interface FooterProps {
-  data?: ContentItem[]; // Make it optional
-}
+export default async function Footer (){
+  const sections = await getData();
+  const data = sections?.footer;  
 
-const Footer: React.FC<FooterProps> = ({ data = [] }) => {
-  const images = data.filter(item => item.type === 'image').map(item => item.data);
-  const texts = data.filter(item => item.type === 'text').map(item => item.data.trim());
+  const images = data?.filter(item => item.type === 'image').map(item => item.data);
+  const texts = data?.filter(item => item.type === 'text').map(item => item.data.trim());
 
   const logoImg = images[0] || '';
   const sectionTitle = texts[0] || 'Address';
@@ -88,5 +104,3 @@ const Footer: React.FC<FooterProps> = ({ data = [] }) => {
     </footer>
   );
 };
-
-export default Footer;

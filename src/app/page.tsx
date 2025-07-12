@@ -30,7 +30,6 @@ async function getData() {
     header2: all.find((s: any) => s.name === 'Header2')?.contents || [],
     Middle: all.find((s: any) => s.name === 'Middle')?.contents || [],
     lowerMiddle: all.find((s: any) => s.name === 'LowerMiddle')?.contents || [],
-    footer: all.find((s: any) => s.name === 'Footer')?.contents || []
   };
 }
 
@@ -49,7 +48,7 @@ export default async function HomePage() {
         <DevOpsSection data={sections.header2} />
         <DevOpsTalentSection data={sections.Middle} />
         <DevOpsTalentBlock data={sections.lowerMiddle} />
-        <Footer data={sections.footer} />
+        <Footer />
       </section>
     </main>
   );
