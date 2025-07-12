@@ -11,9 +11,9 @@ import NavBar from '@/components/home/Navbar';
 async function getData() {
   const domain = 'Truops.in';
   const page = 'Home';
-  
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,{
-   cache: 'no-store'
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`, {
+    cache: 'no-store'
   });
   if (!res.ok) {
     const errorText = await res.text();
@@ -25,12 +25,12 @@ async function getData() {
   const all = data?.sections ?? [];
 
   return {
-          navbar: all.find((s: any ) => s.name === 'Navbar')?.contents || [],
-          header: all.find((s: any ) => s.name === 'Header')?.contents || [],
-          header2: all.find((s: any ) => s.name === 'Header2')?.contents || [],
-          Middle: all.find((s: any ) => s.name === 'Middle')?.contents || [],
-          lowerMiddle: all.find((s: any ) => s.name === 'LowerMiddle')?.contents || [],
-          footer: all.find((s: any ) => s.name === 'Footer')?.contents || []
+    navbar: all.find((s: any) => s.name === 'Navbar')?.contents || [],
+    header: all.find((s: any) => s.name === 'Header')?.contents || [],
+    header2: all.find((s: any) => s.name === 'Header2')?.contents || [],
+    Middle: all.find((s: any) => s.name === 'Middle')?.contents || [],
+    lowerMiddle: all.find((s: any) => s.name === 'LowerMiddle')?.contents || [],
+    footer: all.find((s: any) => s.name === 'Footer')?.contents || []
   };
 }
 
@@ -45,7 +45,7 @@ export default async function HomePage() {
       </Head>
       <section className="bg-white">
         <NavBar />
-        <Hero data1={sections.header}  />
+        <Hero data1={sections.header} />
         <DevOpsSection data={sections.header2} />
         <DevOpsTalentSection data={sections.Middle} />
         <DevOpsTalentBlock data={sections.lowerMiddle} />
