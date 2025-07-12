@@ -23,14 +23,20 @@ const NavBar = () => {
   return (
     <nav className="bg-[url('/images/trueops_8.jpg')] h-[90px] bg-cover flex items-center justify-between px-6 md:px-20 relative z-50">
       {/* Logo */}
-      <Image
-        src="/images/trueops1.jpg"
-        alt="TrueOps Logo"
-        width={200}
-        height={100}
-        className="object-contain"
-        priority
-      />
+    <div className="relative w-[200px] h-[100px]">
+  <Image
+    src="/images/trueops1.jpg"
+    alt="TrueOps Logo"
+    fill
+    sizes="200px"
+    className="object-contain"
+    priority
+  />
+</div>
+
+
+
+
 
       {/* Desktop Menu */}
       <ul className="hidden md:flex gap-10 lg:gap-20 font-semibold text-black">

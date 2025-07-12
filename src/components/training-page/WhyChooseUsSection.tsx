@@ -62,10 +62,65 @@ const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
       <div className="flex flex-col md:flex-row md:space-x-16 justify-center items-center mb-20 px-4 gap-10">
         {whyChooseUsTiles && whyChooseUsTiles.map((value ,index)=>(
           <div className="text-center" key={index}>
-          <Image src={value.data} alt="Live Projects" width={150} height={150} />
+          <div className="relative w-[150px] h-[150px]">
+            <Image
+              src={value.data}
+              alt="Live Projects"
+              fill
+              sizes="(max-width: 768px) 100vw, 150px"
+              className="object-contain"
+            />
+
+          </div>
+
           <p className="mt-2 text-lg font-medium">{value.name}</p>
         </div>
-      ))}
+        <div className="text-center">
+          <div className="relative w-[150px] h-[150px]">
+            <Image
+              src="/images/TrueOpsTraining4.jpg"
+              alt="Cloud Lab"
+              fill
+              className="object-contain"
+               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+          <p className="mt-2 text-lg font-medium">24x7 Cloud Lab</p>
+        </div>
+        <div className="text-center">
+           <div className="relative w-[150px] h-[150px]">
+            <Image
+              src="/images/TrueOpsTraining3.jpg"
+              alt="Industry Mentors"
+              fill
+              className="object-contain"
+               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+          {/* <Image src="/images/TrueOpsTraining3.jpg" alt="Industry Mentors" width={150}
+            height={150}
+            className="w-[150px] h-auto" /> */}
+          <p className="mt-2 text-lg font-medium">
+            Industry <br /> Mentors
+          </p>
+        </div>
+        <div className="text-center">
+           <div className="relative w-[150px] h-[150px]">
+            <Image
+              src="/images/TrueOpsTraining2.jpg"
+              alt="Placement Guarantee"
+              fill
+              className="object-contain"
+               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+          {/* <Image src="/images/TrueOpsTraining2.jpg" alt="Placement Guarantee" width={150}
+            height={150}
+            className="w-[150px] h-auto" /> */}
+          <p className="mt-2 text-lg font-medium">
+            Placement <br /> Guarantee
+          </p>
+        </div>
       </div>
     </>
   );

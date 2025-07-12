@@ -26,6 +26,7 @@ const DevOpsTalentSection: React.FC<DevOpsTalentSectionProps> = ({ data }) => {
             alt="DevOps Talent"
             width={400}
             height={300}
+            priority
             className="h-72 w-auto object-cover mx-auto"
           />
         )}
