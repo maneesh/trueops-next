@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import * as React from 'react';
 import NavBar from '@/components/home/Navbar';
+import Footer from '@/components/home/Footer';
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
@@ -48,16 +49,47 @@ export const metadata: Metadata = {
   //   },
   // ],
 };
+async function getData() {
+  const domain = 'Truops.in';
+  const page = 'layout';
 
-export default function RootLayout({
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
+    {
+      cache: 'no-store',
+    },
+  );
+  // console.log("this is response from footer", res);
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('API error response:', errorText);
+    throw new Error('Failed to fetch page data');
+  }
+
+  const data = await res.json();
+  const all = data?.sections ?? [];
+  // console.log("All Response ----->", all);
+  return {
+    footer: all.find((s: any) => s.name === 'Footer')?.contents || [],
+    navbar: all.find((s: any) => s.name === 'Navbar')?.contents || []
+  };
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const sections = await getData();
   return (
-    <html>
-      {/* <NavBar/> */}
-      <body>{children}</body>
+    <html lang="en">
+      <head />
+      <body>
+        <NavBar navbarData = {sections.navbar} />
+        {children}
+        <Footer footerData={sections.footer}/>
+      </body>
     </html>
   );
 }
+

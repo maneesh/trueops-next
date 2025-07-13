@@ -5,27 +5,26 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-const NavBar = () => {
+interface NavBarProps {
+  navbarData: any[]
+}
+
+const NavBar = ({ navbarData }: NavBarProps) => {
+  const logo = navbarData?.[1]?.data
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname(); // Get current route
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const menuItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/trueops-about' },
-    { name: 'Why TrueOps', href: '/trueops-why' },
-    { name: 'Upcoming Event', href: '/trueops-training' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/trueops-contact' },
-  ];
+  const menuItems = navbarData?.slice(2,7)
 
   return (
     <nav className="bg-[url('/images/trueops_8.jpg')] h-[90px] bg-cover flex items-center justify-between px-6 md:px-20 relative z-50">
       {/* Logo */}
     <div className="relative w-[200px] h-[100px]">
   <Image
-    src="/images/trueops1.jpg"
+    src={logo}
     alt="TrueOps Logo"
     fill
     sizes="200px"
@@ -45,7 +44,7 @@ const NavBar = () => {
             key={item.name}
             className={`cursor-pointer ${pathname === item.href ? 'border-b-2 border-green-500' : ''}`}
           >
-            <Link href={item.href}>{item.name}</Link>
+            <Link href={item.data}>{item.name}</Link>
           </li>
         ))}
       </ul>

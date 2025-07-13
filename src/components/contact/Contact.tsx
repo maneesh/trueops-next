@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import ContactSection from '@/components/contact/ContactSection';
 import MessageSection from '@/components/contact/MessageSection';
-import Footer from '@/components/home/Footer';
-import NavBar from '@/components/home/Navbar';
+
 
 interface SectionsState {
   header: any[];
@@ -59,13 +58,11 @@ const Contact: React.FC = () => {
 
   return (
     <>
-      <NavBar />
       <ContactSection data={{
         header: sections.header,
         Middle: sections.Middle,
       }} />
       <MessageSection data={sections.lowerMiddle} />
-      <Footer />
     </>
   );
 };

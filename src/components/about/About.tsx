@@ -1,7 +1,6 @@
 import AboutSection from '@/components/about/AboutSection';
 import DevOpsSection from '@/components/about/DevOpsSection';
-import Footer from '@/components/home/Footer';
-import NavBar from '@/components/home/Navbar';
+
 
 async function getData() {
   const domain = 'Truops.in';
@@ -32,8 +31,6 @@ export default async function About (){
   const sections = await getData()
   return (
     <>
-      <NavBar />
-
       <AboutSection data={sections.header} />
       <DevOpsSection
         data={{
@@ -41,9 +38,6 @@ export default async function About (){
           Middle: sections.Middle,
           lowerMiddle: sections.lowerMiddle,
         }} />
-
-      <Footer />
-
     </>
   );
 };

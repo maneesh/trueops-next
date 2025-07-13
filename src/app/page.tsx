@@ -4,9 +4,7 @@ import '@/lib/env';
 import DevOpsSection from '@/components/home/DevOpsSection';
 import DevOpsTalentBlock from '@/components/home/DevOpsTalentBlock';
 import DevOpsTalentSection from '@/components/home/DevOpsTalentSection';
-import Footer from '@/components/home/Footer';
 import Hero from '@/components/home/Hero';
-import NavBar from '@/components/home/Navbar';
 
 async function getData() {
   const domain = 'Truops.in';
@@ -43,12 +41,10 @@ export default async function HomePage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <section className="bg-white">
-        <NavBar />
         <Hero data1={sections.header} />
         <DevOpsSection data={sections.header2} />
         <DevOpsTalentSection data={sections.Middle} />
         <DevOpsTalentBlock data={sections.lowerMiddle} />
-        <Footer />
       </section>
     </main>
   );

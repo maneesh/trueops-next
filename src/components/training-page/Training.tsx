@@ -1,7 +1,6 @@
 import DevOpsHero from '@/components/training-page/DevOpsHero';
 import WhyChooseUsSection from '@/components/training-page/WhyChooseUsSection';
-import Footer from '@/components/home/Footer';
-import NavBar from '@/components/home/Navbar';
+
 
 async function getData() {
   const domain = 'Truops.in';
@@ -33,10 +32,8 @@ export default async function Training() {
   const sections = await getData();
   return (
     <>
-      <NavBar />
       <DevOpsHero devopsSectionData={sections.devOpsHero} />
       <WhyChooseUsSection whyChooseUsSectionData={sections.whyChooseUsSection} />
-      <Footer />
     </>
   );
 }

@@ -32,10 +32,10 @@ export default async function WhyTrueOps() {
 
     return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <TrainingSection trainingSectionData= {sections.header} />
       <HowSection MiddleSectionData = {sections.Middle}/>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

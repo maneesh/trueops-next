@@ -1,33 +1,12 @@
 import Image from 'next/image';
-
-async function getData() {
-  const domain = 'Truops.in';
-  const page = 'Footer';
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
-    {
-      cache: 'no-store',
-    },
-  );
-  // console.log("this is response from footer", res);
-  if (!res.ok) {
-    const errorText = await res.text();
-    console.error('API error response:', errorText);
-    throw new Error('Failed to fetch page data');
-  }
-
-  const data = await res.json();
-  const all = data?.sections ?? [];
-  // console.log("All Response ::::>", all);
-  return {
-    footer: all.find((s: any) => s.name === 'Footer')?.contents || []
+interface FooterProps {
+  footerData: {
+    footer: { type: string; data: string }[];
   };
 }
 
-export default async function Footer (){
-  const sections = await getData();
-  const data = sections?.footer;  
+export default function Footer ({ footerData }: FooterProps){
+  const data = footerData || [];  
 
   const images = data?.filter(item => item.type === 'image').map(item => item.data);
   const texts = data?.filter(item => item.type === 'text').map(item => item.data.trim());
