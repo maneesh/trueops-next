@@ -7,7 +7,7 @@ async function getData() {
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
-    { cache: 'no-store' }
+    { cache: 'force-cache' }
   );
 
   if (!res.ok) {
