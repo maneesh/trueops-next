@@ -17,7 +17,10 @@ const NavBar = ({ navbarData }: NavBarProps) => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const menuItems = navbarData?.slice(2,7)
+  const menuItems = navbarData?.slice(2,8) || [];
+  console.log(menuItems);
+  
+
 
   return (
     <nav className="bg-[url('/images/trueops_8.jpg')] h-[90px] bg-cover flex items-center justify-between px-6 md:px-20 relative z-50">
