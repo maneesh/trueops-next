@@ -1,12 +1,13 @@
+"use client"
 import Image from 'next/image';
 interface FooterProps {
-  footerData: {
-    footer: { type: string; data: string }[];
-  };
+  footerData: { type: string; data: string }[];
 }
 
 export default function Footer({ footerData }: FooterProps) {
-  const data = footerData.footer || []; 
+  // console.log(footerData);
+  
+  const data = footerData || []; 
 
   const images = data.filter(item => item.type === 'image').map(item => item.data);
   const texts = data.filter(item => item.type === 'text').map(item => item.data.trim());
