@@ -1,7 +1,5 @@
 export const siteConfig = {
-  title: 'TrueOps',
-  description:
-    'A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import, Seo, Link component, pre-configured with Husky',
-  /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://tsnext-tw.thcl.dev',
+  title: 'JSChamps | Best DevOps & Training Platform',
+  description: 'JSChamps offers expert-led DevOps training, real-world projects, and top IT solutions.',
+  url: 'https://ops.jschamps.com/',
 };
