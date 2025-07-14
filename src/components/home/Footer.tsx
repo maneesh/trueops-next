@@ -5,11 +5,11 @@ interface FooterProps {
   };
 }
 
-export default function Footer ({ footerData }: FooterProps){
-  const data = footerData || [];  
+export default function Footer({ footerData }: FooterProps) {
+  const data = footerData.footer || []; 
 
-  const images = data?.filter(item => item.type === 'image').map(item => item.data);
-  const texts = data?.filter(item => item.type === 'text').map(item => item.data.trim());
+  const images = data.filter(item => item.type === 'image').map(item => item.data);
+  const texts = data.filter(item => item.type === 'text').map(item => item.data.trim());
 
   const logoImg = images[0] || '';
   const sectionTitle = texts[0] || 'Address';
@@ -17,7 +17,7 @@ export default function Footer ({ footerData }: FooterProps){
   const sideImg = images[1] || '';
   const newsletterText = texts[2] || '';
   const buttonText = texts[3] || 'Sign Me Up';
-  const socialIcons = images.slice(2, 6); 
+  const socialIcons = images.slice(2, 6);
 
   return (
     <footer className="bg-black text-white px-6 py-12">
