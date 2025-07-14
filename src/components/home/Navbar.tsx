@@ -67,7 +67,7 @@ const NavBar = ({ navbarData }: NavBarProps) => {
               onClick={toggleMenu}
               className={`cursor-pointer ${pathname === item.href ? 'border-b-2 border-green-500' : ''}`}
             >
-              <Link href={item.href}>{item.name}</Link>
+              <Link href={item.data}>{item.name}</Link>
             </li>
           ))}
         </ul>
