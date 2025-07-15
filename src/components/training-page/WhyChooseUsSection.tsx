@@ -15,7 +15,7 @@ interface Props {
 
 const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
   const BannerImg = whyChooseUsSectionData?.[7]?.data;
-  const whyChooseUsTiles = whyChooseUsSectionData?.slice(9, 13);
+  const whyChooseUsTiles = whyChooseUsSectionData?.slice(9, 11);
 
   return (
     <>
