@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import * as React from 'react';
-import NavBar from '@/components/home/Navbar';
-import Footer from '@/components/home/Footer';
+
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
+
+import Footer from '@/components/home/Footer';
+import NavBar from '@/components/home/Navbar';
 
 import { siteConfig } from '@/constant/config';
 
@@ -49,6 +51,24 @@ export const metadata: Metadata = {
   //   },
   // ],
 };
+
+interface ContentItem {
+  type: 'text' | 'image';
+  data: string;
+  name: string;
+}
+
+interface Section {
+  name: string;
+  contents: ContentItem[];
+}
+
+interface PageResponse {
+  sections?: Section[];
+}
+
+
+
 async function getData() {
   const domain = 'Truops.in';
   const page = 'layout';
@@ -59,19 +79,16 @@ async function getData() {
       cache: 'no-store',
     },
   );
-  // console.log("this is response from footer", res);
   if (!res.ok) {
-    const errorText = await res.text();
-    console.error('API error response:', errorText);
     throw new Error('Failed to fetch page data');
   }
 
-  const data = await res.json();
+  const data: PageResponse = await res.json();
+
   const all = data?.sections ?? [];
-  // console.log("All Response ----->", all);
   return {
-    footer: all.find((s: any) => s.name === 'Footer')?.contents || [],
-    navbar: all.find((s: any) => s.name === 'Navbar')?.contents || []
+    footer: all.find((s) => s.name === 'Footer')?.contents || [],
+    navbar: all.find((s) => s.name === 'Navbar')?.contents || []
   };
 }
 

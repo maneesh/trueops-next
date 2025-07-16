@@ -13,15 +13,24 @@ interface MessageSectionProps {
   data: SectionData[] | { data: SectionData[] };
 }
 
+function isWrappedData(obj: unknown): obj is { data: SectionData[] } {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'data' in obj &&
+    Array.isArray((obj as Record<string, unknown>).data)
+  );
+}
+
 const MessageSection: React.FC<MessageSectionProps> = ({ data }) => {
-  // Type guard to safely extract the array
   const resolvedData: SectionData[] = Array.isArray(data)
     ? data
-    : Array.isArray((data as any)?.data)
-      ? (data as any).data
+    : isWrappedData(data)
+      ? data.data
       : [];
-  const textSections = resolvedData.filter((item: SectionData) => item.type === 'text');
-  const imageSection = resolvedData.find((item: SectionData) => item.type === 'image');
+
+  const textSections = resolvedData.filter((item) => item.type === 'text');
+  const imageSection = resolvedData.find((item) => item.type === 'image');
 
   return (
     <section className="max-w-6xl mx-auto bg-white rounded-xl shadow-md px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
@@ -53,7 +62,6 @@ const MessageSection: React.FC<MessageSectionProps> = ({ data }) => {
         </div>
       )}
     </section>
-
   );
 };
 

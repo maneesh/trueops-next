@@ -5,43 +5,44 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
+interface NavItem {
+  name: string;
+  data: string; // This is used as href in your code
+}
+
 interface NavBarProps {
-  navbarData: any[]
+  navbarData: NavItem[];
 }
 
 const NavBar = ({ navbarData }: NavBarProps) => {
-  const logo = navbarData?.[1]?.data
-  
+  const logo = navbarData?.[1]?.data;
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname(); // Get current route
+  const pathname = usePathname();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const menuItems = navbarData?.slice(2,8) || [];  
+  const menuItems = navbarData?.slice(2, 8) || [];
+
   return (
     <nav className="bg-[url('/images/trueops_8.jpg')] h-[90px] bg-cover flex items-center justify-between px-6 md:px-20 relative z-50">
       {/* Logo */}
-    <div className="relative w-[200px] h-[100px]">
-  <Image
-    src={logo}
-    alt="TrueOps Logo"
-    fill
-    sizes="200px"
-    className="object-contain"
-    priority
-  />
-</div>
-
-
-
-
+      <div className="relative w-[200px] h-[100px]">
+        <Image
+          src={logo}
+          alt="TrueOps Logo"
+          fill
+          sizes="200px"
+          className="object-contain"
+          priority
+        />
+      </div>
 
       {/* Desktop Menu */}
       <ul className="hidden md:flex gap-10 lg:gap-20 font-semibold text-black">
         {menuItems.map((item) => (
           <li
             key={item.name}
-            className={`cursor-pointer ${pathname === item.href ? 'border-b-2 border-green-500' : ''}`}
+            className={`cursor-pointer ${pathname === item.data ? 'border-b-2 border-green-500' : ''}`}
           >
             <Link href={item.data}>{item.name}</Link>
           </li>
@@ -51,7 +52,13 @@ const NavBar = ({ navbarData }: NavBarProps) => {
       {/* Mobile Hamburger */}
       <div className="md:hidden">
         <button onClick={toggleMenu} className="text-black focus:outline-none">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
@@ -64,7 +71,7 @@ const NavBar = ({ navbarData }: NavBarProps) => {
             <li
               key={item.name}
               onClick={toggleMenu}
-              className={`cursor-pointer ${pathname === item.href ? 'border-b-2 border-green-500' : ''}`}
+              className={`cursor-pointer ${pathname === item.data ? 'border-b-2 border-green-500' : ''}`}
             >
               <Link href={item.data}>{item.name}</Link>
             </li>
@@ -76,6 +83,7 @@ const NavBar = ({ navbarData }: NavBarProps) => {
 };
 
 export default NavBar;
+
 
 
 

@@ -1,5 +1,22 @@
-import About from '@/components/about/About'; 
 import React from 'react';
+
+import About from '@/components/about/About';
+
+interface ContentItem {
+  type: 'text' | 'image';
+  data: string;
+  name?: string;
+}
+
+interface Section {
+  name: string;
+  contents: ContentItem[];
+}
+
+interface PageResponse {
+  sections?: Section[];
+}
+
 
 async function getData() {
   const domain = 'Truops.in';
@@ -11,19 +28,18 @@ async function getData() {
   );
 
   if (!res.ok) {
-    const errorText = await res.text();
-    console.error('API error response:', errorText);
     throw new Error('Failed to fetch page data');
   }
 
-  const data = await res.json();
+
+  const data: PageResponse = await res.json();
   const all = data?.sections ?? [];
 
   return {
-    header: all.find((s: any) => s.name === 'Header')?.contents || [],
-    header2: all.find((s: any) => s.name === 'Header2')?.contents || [],
-    Middle: all.find((s: any) => s.name === 'Middle')?.contents || [],
-    lowerMiddle: all.find((s: any) => s.name === 'LowerMiddle')?.contents || [],
+    header: all.find((s) => s.name === 'Header')?.contents || [],
+    header2: all.find((s) => s.name === 'Header2')?.contents || [],
+    Middle: all.find((s) => s.name === 'Middle')?.contents || [],
+    lowerMiddle: all.find((s) => s.name === 'LowerMiddle')?.contents || [],
   };
 }
 
@@ -32,7 +48,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      <About sections={sections} /> 
+      <About sections={sections} />
     </>
   );
 }
