@@ -14,12 +14,16 @@ const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
   const imageUrl = data.header.find(item => item.type === 'image')?.data;
 
   // Split Middle into useful sections
+  const texts = data.Middle.filter(item => item.type === 'text').map(item => item.data);
   const heading = data.Middle.find(item => item.name === 'CONTACT US')?.name;
-  const intro = data.Middle.find(item => item.name === 'CONTACT US')?.data;
+  const intro1 = texts[0];
+  const intro2 = texts[1];
+  const intro3 = texts[2];
+  const intro4 = texts[3];
   const allowed =['name', 'email', 'message'];
   const placeholders = data.Middle.filter(item =>allowed.includes(item.data?.trim().toLowerCase()));
   const buttonLabel = data.Middle.find(item => item.data.toLowerCase() === 'send')?.data || 'Send';
- // console.log("info",intro);
+  //console.log("info",texts);
   
 
   return (
@@ -42,10 +46,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
           {/* Left Content */}
          <div className="flex-1 text-center">
   <h2 className="font-extrabold text-[#60bb46] text-3xl md:text-4xl mb-4 ">{heading || 'CONTACT US'}</h2>
-  <p>{intro?.slice(0,27)}</p>
-  <p>{intro?.slice(28,58)}</p>
-  <p>{intro?.slice(59,85)}</p>
-  <p>{intro?.slice(86,97)}</p>
+  <p>{intro1}</p>
+  <p>{intro2}</p>
+  <p>{intro3}</p>
+  <p>{intro4}</p>
 </div>
 
 

@@ -18,7 +18,7 @@ const DevOpsTalentBlock: React.FC<DevOpsTalentBlockProps> = ({ data }) => {
   const image = images[0]?.data || '';
   const rightSideImage = images[1]?.data || '';
 
-  const [title, descriptionTop, descriptionBottom, buttonText] = texts;
+  const [title, descriptionTop, descriptionBottom1, descriptionBottom2, descriptionBottom3, buttonText] = texts;
 
   return (
     <section className="px-6 md:px-20 py-20">
@@ -48,13 +48,13 @@ const DevOpsTalentBlock: React.FC<DevOpsTalentBlockProps> = ({ data }) => {
         {/* Right: Content Section */}
         <div className="w-full  text-justify lg:text-center self-center  mt-12 lg:mt-0">
           <p className="text-xl text-black  mx-auto lg:mx-0">
-            {descriptionBottom.slice(0,99)}
+            {descriptionBottom1}
           </p>
            <p className="text-xl text-black   mx-auto lg:mx-0">
-            {descriptionBottom.slice(100,196)}
+            {descriptionBottom2}
           </p>
            <p className="text-xl text-black   mx-auto lg:mx-0">
-            {descriptionBottom.slice(197,232)}
+            {descriptionBottom3}
           </p>
 
           <div className="flex justify-center ">

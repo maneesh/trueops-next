@@ -27,11 +27,11 @@ interface SectionsState {
 async function getData(): Promise<SectionsState> {
   try {
     const domain = 'Truops.in';
-    const page = 'Contact Us';
+    const page = 'contact';
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
-      { cache: 'force-cache' }
+      { cache: 'no-cache' }
     );
 
     if (!res.ok) {

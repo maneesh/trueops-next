@@ -20,11 +20,14 @@ interface DevOpsSectionProps {
 const DevOpsSection: React.FC<DevOpsSectionProps> = ({ data }) => {
 
   // Extract from header2
+  const texts = data.header2.filter(item => item.type === 'text').map(item => item.data);
   const trainingText = data.header2.find(item => item.data?.trim() === 'DEVOPS TRAINING')?.data.trim() || '';
   const applyNowText = data.header2.find(item => item.data?.trim() === 'Apply Now')?.data.trim();
   const trainingImage = data.header2.find(item => item.type === 'image')?.data.trim();
-  const trainingDesc = data.header2.find(item => item.data?.includes('professionals.'))
-  //console.log("this is training text :",trainingDesc);
+  const trainingDesc1 = texts[1];
+  const trainingDesc2 = texts[2];
+  const trainingDesc3 = texts[3];
+  //console.log("this is training text :",trainingDesc1);
   
 
   // Extract from Middle
@@ -60,9 +63,9 @@ const DevOpsSection: React.FC<DevOpsSectionProps> = ({ data }) => {
               {trainingHeadingWords.slice(1).join(' ')}
             </h2>
           )}
-          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc?.data.slice(0,30)}</p>
-          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc?.data.slice(31,61)}</p>
-          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc?.data.slice(62,75)}</p>
+          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc1}</p>
+          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc2}</p>
+          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc3}</p>
 
           {applyNowText && (
             <button className="bg-lime-500 text-white px-6 py-2 rounded mt-6">

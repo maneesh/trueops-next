@@ -24,7 +24,7 @@ interface PageResponse {
 
 async function getData() {
   const domain = 'Truops.in';
-  const page = 'home';
+  const page = 'Home';
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`, {
     cache: 'no-store'
