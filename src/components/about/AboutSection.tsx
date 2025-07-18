@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+//import bannerImage from '../../../public/images/aboutBanner.png'
 
 interface ContentItem {
   type: string;
@@ -19,6 +20,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
   const textBlock = data.find(item => item.type === 'text')?.data || '';
 
   const lines = textBlock.split(/(?<=\.)\s|(?<=%)(?=\s)|(?<=[a-z])(?=\s[A-Z])/g);
+  //console.log("cloud",textBlock);
+  
 
 
   return (
@@ -29,6 +32,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
       }}
     >
       <div className="max-w-6xl mx-auto relative min-h-[60vh] flex flex-col lg:flex-row lg:items-center lg:justify-center">
+      
         {/* Image */}
         {secondImage && (
           <div className="flex justify-center lg:justify-start lg:absolute lg:top-10 lg:left-10">

@@ -20,9 +20,12 @@ interface DevOpsSectionProps {
 const DevOpsSection: React.FC<DevOpsSectionProps> = ({ data }) => {
 
   // Extract from header2
-  const trainingText = data.header2.find(item => item.name?.trim() === 'DEVOPS TRAINING')?.data.trim() || '';
+  const trainingText = data.header2.find(item => item.data?.trim() === 'DEVOPS TRAINING')?.data.trim() || '';
   const applyNowText = data.header2.find(item => item.data?.trim() === 'Apply Now')?.data.trim();
   const trainingImage = data.header2.find(item => item.type === 'image')?.data.trim();
+  const trainingDesc = data.header2.find(item => item.data?.includes('professionals.'))
+  //console.log("this is training text :",trainingDesc);
+  
 
   // Extract from Middle
   const whyDevOpsItem = data.Middle.find(item => item.name?.trim().toUpperCase().includes('WHY DEVOPS'));
@@ -33,7 +36,8 @@ const DevOpsSection: React.FC<DevOpsSectionProps> = ({ data }) => {
   const upcomingButton = data.Middle.find(item =>
     item.data?.toLowerCase().includes('new batch')
   )?.data?.trim();
-
+   //console.log(whyDevOpsItem);
+   
   // Extract from lowerMiddle
   const trainingFormatTitle = data.lowerMiddle.find(item => item.data?.trim().toUpperCase() === 'TRAINING FORMAT')?.data.trim();
   const trainingImages = data.lowerMiddle.filter(item => item.type === 'image');
@@ -50,13 +54,15 @@ const DevOpsSection: React.FC<DevOpsSectionProps> = ({ data }) => {
       <section className="flex flex-col md:flex-row items-center justify-center py-20 px-6 space-y-10 md:space-y-0 md:space-x-20">
         <div className="text-center md:text-left">
           {trainingHeadingWords.length >= 2 && (
-            <h2 className="text-xl font-bold ">
+            <h2 className="text-4xl font-bold ">
               <span className="text-lime-500">{trainingHeadingWords[0]}</span>
               <br />
               {trainingHeadingWords.slice(1).join(' ')}
             </h2>
           )}
-          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingText}</p>
+          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc?.data.slice(0,30)}</p>
+          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc?.data.slice(31,61)}</p>
+          <p className="mt-4 text-sm md:text-base whitespace-pre-line">{trainingDesc?.data.slice(62,75)}</p>
 
           {applyNowText && (
             <button className="bg-lime-500 text-white px-6 py-2 rounded mt-6">
@@ -107,7 +113,9 @@ const DevOpsSection: React.FC<DevOpsSectionProps> = ({ data }) => {
               })()}
             </h2>
           )}
-          <p className="mt-4 whitespace-pre-line">{whyDevOpsItem?.data}</p>
+          <p className="mt-4 whitespace-pre-line">{whyDevOpsItem?.data.slice(0,30)}</p>
+          <p className="mt-4 whitespace-pre-line">{whyDevOpsItem?.data.slice(31,61)}</p>
+          <p className="mt-4 whitespace-pre-line">{whyDevOpsItem?.data.slice(62,75)}</p>
         </div>
       </section>
 

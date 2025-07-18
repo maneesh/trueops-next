@@ -20,12 +20,14 @@ interface PageResponse {
 
 async function getData() {
   const domain = 'Truops.in';
-  const page = 'About';
+  const page = 'aboutFinal';
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
     { cache: 'force-cache' }
   );
+  
+  
 
   if (!res.ok) {
     throw new Error('Failed to fetch page data');
@@ -34,6 +36,7 @@ async function getData() {
 
   const data: PageResponse = await res.json();
   const all = data?.sections ?? [];
+  //console.log("this is about data",data);
 
   return {
     header: all.find((s) => s.name === 'Header')?.contents || [],

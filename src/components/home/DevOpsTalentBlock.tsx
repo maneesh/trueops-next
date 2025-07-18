@@ -14,13 +14,15 @@ interface DevOpsTalentBlockProps {
 
 const DevOpsTalentBlock: React.FC<DevOpsTalentBlockProps> = ({ data }) => {
   const texts = data.filter((item) => item.type === 'text').map((item) => item.data.trim());
-  const image = data.find((item) => item.type === 'image')?.data || '';
+  const images = data.filter((item) => item.type === 'image');
+  const image = images[0]?.data || '';
+  const rightSideImage = images[1]?.data || '';
 
   const [title, descriptionTop, descriptionBottom, buttonText] = texts;
 
   return (
     <section className="px-6 md:px-20 py-20">
-      <div className="flex flex-col lg:flex-row lg:gap-10 lg:pl-20">
+      <div className="flex flex-col lg:gap-10 lg:pl-20 ">
 
         {/* Left: Image & Title Section */}
         <div className="w-full lg:w-1/2">
@@ -44,17 +46,32 @@ const DevOpsTalentBlock: React.FC<DevOpsTalentBlockProps> = ({ data }) => {
         </div>
 
         {/* Right: Content Section */}
-        <div className="w-full lg:w-1/2 text-center lg:text-left mt-12 lg:mt-0">
-          <p className="text-xl text-black text-justify max-w-3xl mx-auto lg:mx-0">
-            {descriptionBottom}
+        <div className="w-full  text-justify lg:text-center self-center  mt-12 lg:mt-0">
+          <p className="text-xl text-black  mx-auto lg:mx-0">
+            {descriptionBottom.slice(0,99)}
+          </p>
+           <p className="text-xl text-black   mx-auto lg:mx-0">
+            {descriptionBottom.slice(100,196)}
+          </p>
+           <p className="text-xl text-black   mx-auto lg:mx-0">
+            {descriptionBottom.slice(197,232)}
           </p>
 
-          <div className="flex justify-center lg:justify-start">
+          <div className="flex justify-center ">
             <button className="mt-6 w-full md:w-[300px] px-6 py-2 bg-[#5bc033] text-white hover:bg-lime-700 hover:text-black rounded font-semibold transition duration-300">
               {buttonText}
             </button>
           </div>
         </div>
+        {rightSideImage && (
+          <Image
+      src={rightSideImage}
+      alt='rightSideImage'
+      width={250}
+      height={300}
+      className='absolute right-0 hidden lg:block' />
+        )}
+        
       </div>
     </section>
   );
