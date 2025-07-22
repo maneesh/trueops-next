@@ -31,18 +31,31 @@ const NavBar = ({ navbarData }: NavBarProps) => {
   return (
     <nav className="bg-[url('/images/trueops_8.jpg')] h-[90px] bg-cover flex items-center justify-between px-6 md:px-20 relative z-50">
       {/* Logo */}
+
+    {pathname !== '/' ? (
      <div className="relative w-[200px] h-[100px]">
-  <Link href="/">
-    <Image
+     <Link href="/">
+     <Image
       src={logo}
       alt="TrueOps Logo"
       fill
       sizes="200px"
       className="object-contain cursor-pointer"
       priority
+     />
+    </Link>
+    </div>):(
+    <div className="relative w-[200px] h-[100px]">
+      <Image
+      src={logo}
+      alt="TrueOps Logo"
+      fill
+      sizes="200px"
+      className="object-contain"
+      priority
     />
-  </Link>
-</div>
+    </div>
+    )}
 
 
       {/* Desktop Menu */}
