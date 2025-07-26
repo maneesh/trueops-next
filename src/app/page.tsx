@@ -6,6 +6,22 @@ import DevOpsTalentBlock from '@/components/home/DevOpsTalentBlock';
 import DevOpsTalentSection from '@/components/home/DevOpsTalentSection';
 import Hero from '@/components/home/Hero';
 
+interface ContentItem {
+  type: 'text' | 'image';
+  data: string;
+  name?: string;
+}
+
+interface Section {
+  name: string;
+  contents: ContentItem[];
+}
+
+interface PageResponse {
+  sections?: Section[];
+}
+
+
 async function getData() {
   const domain = 'Truops.in';
   const page = 'Home';
@@ -14,20 +30,18 @@ async function getData() {
     cache: 'no-store'
   });
   if (!res.ok) {
-    const errorText = await res.text();
-    console.error('API error response:', errorText);
     throw new Error('Failed to fetch page data');
   }
 
-  const data = await res.json();
+ const data: PageResponse = await res.json();
   const all = data?.sections ?? [];
 
   return {
-    navbar: all.find((s: any) => s.name === 'Navbar')?.contents || [],
-    header: all.find((s: any) => s.name === 'Header')?.contents || [],
-    header2: all.find((s: any) => s.name === 'Header2')?.contents || [],
-    Middle: all.find((s: any) => s.name === 'Middle')?.contents || [],
-    lowerMiddle: all.find((s: any) => s.name === 'LowerMiddle')?.contents || [],
+    navbar: all.find((s) => s.name === 'Navbar')?.contents || [],
+    header: all.find((s) => s.name === 'Header')?.contents || [],
+    header2: all.find((s) => s.name === 'Header2')?.contents || [],
+    Middle: all.find((s) => s.name === 'Middle')?.contents || [],
+    lowerMiddle: all.find((s) => s.name === 'LowerMiddle')?.contents || [],
   };
 }
 

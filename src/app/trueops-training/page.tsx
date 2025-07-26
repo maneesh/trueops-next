@@ -1,6 +1,20 @@
 import DevOpsHero from '@/components/training-page/DevOpsHero';
 import WhyChooseUsSection from '@/components/training-page/WhyChooseUsSection';
 
+interface ContentItem {
+  type: 'text' | 'image';
+  data: string;
+  name: string;
+}
+
+interface Section {
+  name: string;
+  contents: ContentItem[];
+}
+
+interface PageResponse {
+  sections?: Section[];
+}
 
 async function getData() {
   const domain = 'Truops.in';
@@ -11,17 +25,15 @@ async function getData() {
   });
 
   if (!res.ok) {
-    const errorText = await res.text();
-    console.error('API error response:', errorText);
     throw new Error('Failed to fetch page data');
   }
 
-  const data = await res.json();
+  const data: PageResponse = await res.json();
   const all = data?.sections ?? [];
 
   return {
-    devOpsHero: all.find((s: any) => s.name === 'Header')?.contents || [],
-    whyChooseUsSection: all.find((s: any) => s.name === 'Middle')?.contents || [],
+    devOpsHero: all.find((s) => s.name === 'Header')?.contents || [],
+    whyChooseUsSection: all.find((s) => s.name === 'Middle')?.contents || [],
   };
 }
 

@@ -15,13 +15,15 @@ interface Props {
 
 const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
   const BannerImg = whyChooseUsSectionData?.[7]?.data;
-  const whyChooseUsTiles = whyChooseUsSectionData?.slice(9, 11);
+  const whyChooseUsTiles = whyChooseUsSectionData?.slice(9, 13);
+  //console.log(whyChooseUsTiles);
+  
 
   return (
     <>
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-center my-20 md:space-x-24 gap-10 px-4">
-        <div className="max-w-xl text-center items-center">
+        <div className="max-w-md text-center items-center">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
             {whyChooseUsSectionData?.[0]?.data}
           </h1>
@@ -80,7 +82,7 @@ const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
             </div>
           ))}
 
-        {/* Static Tiles */}
+        {/* Static Tiles
         <div className="text-center">
           <div className="relative w-[150px] h-[150px]">
             <Image
@@ -122,7 +124,7 @@ const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
           <p className="mt-2 text-lg font-medium">
             Placement <br /> Guarantee
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );

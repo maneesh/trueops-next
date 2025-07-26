@@ -2,13 +2,18 @@
 import AboutSection from '@/components/about/AboutSection';
 import DevOpsSection from '@/components/about/DevOpsSection';
 
+interface ContentItem {
+  type: 'text' | 'image';
+  data: string;
+  name?: string;
+}
 
 interface Props {
   sections: {
-    header: any[];
-    header2: any[];
-    Middle: any[];
-    lowerMiddle: any[];
+    header: ContentItem[];
+    header2: ContentItem[];
+    Middle: ContentItem[];
+    lowerMiddle: ContentItem[];
   };
 }
 
@@ -21,7 +26,8 @@ export default function About({ sections }: Props) {
           header2: sections.header2,
           Middle: sections.Middle,
           lowerMiddle: sections.lowerMiddle,
-        }} />
+        }}
+      />
     </>
   );
 }

@@ -1,9 +1,9 @@
 'use client'; // Error components must be Client Components
 
+import Image from 'next/image';
 import * as React from 'react';
 
 import TextButton from '@/components/buttons/TextButton';
-import Image from 'next/image';
 
 export default function Error({
   error,
