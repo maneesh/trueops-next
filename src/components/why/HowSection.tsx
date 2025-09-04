@@ -3,24 +3,38 @@
 import Image from 'next/image';
 import React from 'react';
 
-type ContentItem = {
-  type: 'text' | 'image';
-  data: string;
-};
+// type ContentItem = {
+//   type: 'text' | 'media';
+//    media_ref:string,
+//   data: string;
+  
+// };
 
 interface HowSectionProps {
-  MiddleSectionData: ContentItem[];
-};
+  MiddleSectionData: {
+    type: 'text' | 'media';
+    data: string;
+    media_ref?: string;
+  }[];
+}
 const HowSection: React.FC<HowSectionProps> = ({MiddleSectionData}) => {
-  const Middleimage = MiddleSectionData?.[11]?.data
+  
+  const Middleimage = MiddleSectionData?.[11]?.media_ref
+   
+  
   const Mentor = MiddleSectionData?.[12]?.data 
   const Mountain = MiddleSectionData?.[19]?.data 
-  // console.log(MiddleSectionData);
+
+
+  
+  // const texts = MiddleSectionData.filter(item => item.type === 'text').map(item => item.data);
+  // const image = MiddleSectionData.find(item => item.type === 'media')?.media_ref || '';
+
   return (
     <>
       {/* Section 1: DevOps Learning Block */}
-      <section className="relative flex flex-col md:flex-row py-20 text-center md:text-left gap-20">
-        <div className="md:ml-60 flex flex-col items-center md:items-start px-4">
+      <section className="relative flex flex-col md:flex-row py-20 text-center md:text-left ">
+        <div className="md:ml-57 flex flex-col items-center md:items-start px-4 ">
           <h1 className="md:text-5xl text-2xl font-bold py-2">{MiddleSectionData?.[0]?.data}</h1>
           <h2 className="md:text-5xl text-2xl font-bold">{MiddleSectionData?.[1]?.data}</h2>
           <h3 className="md:text-5xl text-2xl font-bold py-2">{MiddleSectionData?.[2]?.data}</h3>
@@ -48,7 +62,11 @@ const HowSection: React.FC<HowSectionProps> = ({MiddleSectionData}) => {
           </div>
         </div>
 
-        <div style ={{ backgroundImage: `url(${Middleimage})` }} className="lg:w-[750px] lg:h-[480px]  bg-center absolute right-0 rounded-l-3xl hidden md:block"></div>
+        <div
+  style={{ backgroundImage: `url(${Middleimage})` }}
+  className="lg:w-[750px] lg:h-[480px] bg-center absolute right-0 rounded-l-3xl hidden md:block"
+/>
+
       </section>
 
       {/* Section 2: Mentor Highlight */}

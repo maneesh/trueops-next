@@ -1,57 +1,54 @@
-import React from 'react';
 
 import About from '@/components/about/About';
 
 interface ContentItem {
-  type: 'text' | 'image';
+  type: 'text' | 'media';
   data: string;
   name?: string;
+  media_ref: string;
+  title?: string | null;
 }
 
 interface Section {
-  name: string;
+  component: string;
   contents: ContentItem[];
 }
 
-interface PageResponse {
-  sections?: Section[];
-}
-
+type PageResponse = Section[]; // ✅ Fix here
 
 async function getData() {
-  const domain = 'Truops.in';
-  const page = 'About';
+  const domain = 'truops.in';
+  const group = 'About';
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
-    { cache: 'no-cache' }
+    `${process.env.NEXT_PUBLIC_BASE_URL}/cms-static?domain=${domain}&group=${group}`,
+    {
+      cache: 'no-cache',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
   );
-  
-  
 
   if (!res.ok) {
     throw new Error('Failed to fetch page data');
   }
 
+  const all: PageResponse = await res.json(); // ✅ Correctly treat as array
 
-  const data: PageResponse = await res.json();
-  const all = data?.sections ?? [];
-  //console.log("this is about data",data);
+  // console.log("Parsed sections array:", all.map(s => s.component));
 
   return {
-    header: all.find((s) => s.name === 'Header')?.contents || [],
-    header2: all.find((s) => s.name === 'Header2')?.contents || [],
-    Middle: all.find((s) => s.name === 'Middle')?.contents || [],
-    lowerMiddle: all.find((s) => s.name === 'LowerMiddle')?.contents || [],
+    header: all.find((s) => s.component === 'Header')?.contents || [],
+    header2: all.find((s) => s.component === 'Header2')?.contents || [],
+    Middle: all.find((s) => s.component === 'Middle')?.contents || [],
+    lowerMiddle: all.find((s) => s.component === 'LowerMiddle')?.contents || [],
   };
 }
 
 export default async function AboutPage() {
   const sections = await getData();
-
-  return (
-    <>
-      <About sections={sections} />
-    </>
-  );
+  // console.log("sections=", sections);
+  return <About sections={sections} />;
 }

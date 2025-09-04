@@ -4,15 +4,17 @@ import Image from 'next/image';
 import React from 'react';
 
 interface SectionData {
-  type: 'text' | 'image';
+  type: 'text' | 'media';
   name?: string;
   data: string;
+  media_ref: string;
 }
 
 interface MessageSectionProps {
   data: SectionData[] | { data: SectionData[] };
 }
 
+// Helper function to detect wrapped data
 function isWrappedData(obj: unknown): obj is { data: SectionData[] } {
   return (
     typeof obj === 'object' &&
@@ -23,14 +25,18 @@ function isWrappedData(obj: unknown): obj is { data: SectionData[] } {
 }
 
 const MessageSection: React.FC<MessageSectionProps> = ({ data }) => {
+  // Handle both direct array and wrapped object
   const resolvedData: SectionData[] = Array.isArray(data)
     ? data
     : isWrappedData(data)
       ? data.data
       : [];
 
+  // Filter text and media items
   const textSections = resolvedData.filter((item) => item.type === 'text');
-  const imageSection = resolvedData.find((item) => item.type === 'image');
+  const imageSection = resolvedData.find((item) => item.type === 'media');
+
+
 
   return (
     <section className="max-w-6xl mx-auto bg-white rounded-xl shadow-md px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
@@ -41,19 +47,21 @@ const MessageSection: React.FC<MessageSectionProps> = ({ data }) => {
             <h2 className="font-bold text-2xl">{section.name}</h2>
             <div className="h-[2px] bg-gray-300 w-20 mt-5 mb-3" />
             <div className="space-y-1">
-              {section.data.split(/[\r\n]+|(?<=[.])\s+/).map((line, i) => (
-                <p key={i}>{line.trim()}</p>
-              ))}
+              {section.data
+                .split(/[\r\n]+|(?<=[.])\s+/)
+                .map((line, i) => (
+                  <p key={i}>{line.trim()}</p>
+                ))}
             </div>
           </div>
         ))}
       </div>
 
       {/* Right Image Section */}
-      {imageSection && (
+      {imageSection && imageSection.media_ref && (
         <div className="flex-1 flex justify-center items-center">
           <Image
-            src={imageSection.data}
+            src={imageSection.media_ref}
             alt="TrueOps Contact"
             width={300}
             height={300}

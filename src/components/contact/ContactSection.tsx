@@ -5,29 +5,34 @@ import React from 'react';
 
 type ContactSectionProps = {
   data: {
-    header: Array<{ type: string; data: string }>;
+    header: Array<{ type: string; data: string; media_ref?: string }>;
     Middle: Array<{ type: string; data: string; name?: string }>;
   };
 };
 
 const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
-  const imageUrl = data.header.find(item => item.type === 'image')?.data;
+  // ✅ Get image item properly
+  const imageItem = data.header.find(item => item.type === 'media');
+  const imageUrl = imageItem?.media_ref || imageItem?.data;
 
-  // Split Middle into useful sections
+  // ✅ Split Middle into parts
   const texts = data.Middle.filter(item => item.type === 'text').map(item => item.data);
   const heading = data.Middle.find(item => item.name === 'CONTACT US')?.name;
   const intro1 = texts[0];
   const intro2 = texts[1];
   const intro3 = texts[2];
   const intro4 = texts[3];
-  const allowed =['name', 'email', 'message'];
-  const placeholders = data.Middle.filter(item =>allowed.includes(item.data?.trim().toLowerCase()));
+
+  const allowed = ['name', 'email', 'message'];
+  const placeholders = data.Middle.filter(item =>
+    allowed.includes(item.data?.trim().toLowerCase())
+  );
+
   const buttonLabel = data.Middle.find(item => item.data.toLowerCase() === 'send')?.data || 'Send';
-  //console.log("info",texts);
-  
 
   return (
     <div className="w-full">
+      {/* ✅ Banner Image */}
       {imageUrl && (
         <div className="relative w-full h-[300px]">
           <Image
@@ -41,17 +46,19 @@ const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
         </div>
       )}
 
+      {/* Main Section */}
       <section className="flex flex-col md:flex-row items-center justify-center px-5 md:px-10 mt-[-5rem] z-10 relative">
         <div className="w-full max-w-5xl bg-white shadow-lg rounded-xl flex flex-col md:flex-row items-center justify-center gap-10 p-6 md:p-10">
-          {/* Left Content */}
-         <div className="flex-1 text-center">
-  <h2 className="font-extrabold text-[#60bb46] text-3xl md:text-4xl mb-4 ">{heading || 'CONTACT US'}</h2>
-  <p>{intro1}</p>
-  <p>{intro2}</p>
-  <p>{intro3}</p>
-  <p>{intro4}</p>
-</div>
-
+          {/* Left Text Section */}
+          <div className="flex-1 text-center">
+            <h2 className="font-extrabold text-[#60bb46] text-3xl md:text-4xl mb-4">
+              {heading || 'CONTACT US'}
+            </h2>
+            <p>{intro1}</p>
+            <p>{intro2}</p>
+            <p>{intro3}</p>
+            <p>{intro4}</p>
+          </div>
 
           {/* Right Form */}
           <div className="flex-1 w-full space-y-4">

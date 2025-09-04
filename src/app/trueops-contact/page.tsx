@@ -1,20 +1,21 @@
 
+
 import Contact from '@/components/contact/Contact';
 
+// Updated type to reflect actual API response
 interface ContentItem {
-  type: 'text' | 'image';
+  type: 'text' | 'media';
   data: string;
   name?: string;
+  media_ref:"string"
 }
 
 interface Section {
-  name: string;
+  component: 'Header' | 'Middle' | 'LowerMiddle' | 'Footer'; // corrected from "name"
   contents: ContentItem[];
 }
 
-interface PageResponse {
-  sections?: Section[];
-}
+type PageResponse = Section[]; // API returns an array of sections
 
 interface SectionsState {
   header: ContentItem[];
@@ -23,15 +24,14 @@ interface SectionsState {
   footer: ContentItem[];
 }
 
-
 async function getData(): Promise<SectionsState> {
   try {
-    const domain = 'Truops.in';
-    const page = 'contact';
+    const domain = 'truops.in';
+    const group = 'contact';
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/static?domain=${domain}&page=${encodeURIComponent(page)}`,
-      { cache: 'no-cache' }
+      `${process.env.NEXT_PUBLIC_BASE_URL}/cms-static?domain=${domain}&group=${group}`,
+      { cache: 'no-store' } // Ensures latest data in SSR
     );
 
     if (!res.ok) {
@@ -39,15 +39,17 @@ async function getData(): Promise<SectionsState> {
     }
 
     const data: PageResponse = await res.json();
-    const all = data?.sections ?? [];
+
+    
 
     return {
-      header: all.find((s) => s.name === 'Header')?.contents || [],
-      Middle: all.find((s) => s.name === 'Middle')?.contents || [],
-      lowerMiddle: all.find((s) => s.name === 'LowerMiddle')?.contents || [],
-      footer: all.find((s) => s.name === 'Footer')?.contents || [],
+      header: data.find((s) => s.component === 'Header')?.contents || [],
+      Middle: data.find((s) => s.component === 'Middle')?.contents || [],
+      lowerMiddle: data.find((s) => s.component === 'LowerMiddle')?.contents || [],
+      footer: data.find((s) => s.component === 'Footer')?.contents || [],
     };
   } catch (error) {
+ 
     return {
       header: [],
       Middle: [],
@@ -59,5 +61,8 @@ async function getData(): Promise<SectionsState> {
 
 export default async function ContactPage() {
   const sections = await getData();
+
+  // 
+
   return <Contact sections={sections} />;
 }

@@ -1,20 +1,24 @@
 import Image from 'next/image';
-interface ContentItem {
-  type: string;
-  name: string;
-  data: string;
-}
-
+// interface ContentItem {
+//   type: 'text' | 'media';
+//   data: string;
+//   name: string;
+//    media_ref:string,
+// }
 interface Props {
-  devopsSectionData: ContentItem[];
+  devopsSectionData: {
+    type: 'text' | 'media';
+    data: string;
+    media_ref?: string;
+  }[];
 }
 const DevOpsHero: React.FC<Props> = ({devopsSectionData}) => {
-  const trainingBackground = devopsSectionData?.[0]?.data;  
-  const poster = devopsSectionData?.[4]?.data;
+  const trainingBackground = devopsSectionData?.[0]?.media_ref;  
+  const poster = devopsSectionData?.[4]?.media_ref;
   const headline = devopsSectionData?.[1]?.data
   const title1 = devopsSectionData?.[2]?.data
   const title2 = devopsSectionData?.[3]?.data
-  
+  // console.log("this is training data",devopsSectionData)
   return (
     <section
       className="bg-cover bg-no-repeat py-10 px-4"

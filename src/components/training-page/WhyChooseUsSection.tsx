@@ -1,12 +1,15 @@
+
+
 'use client';
 
 import Image from 'next/image';
 import React from 'react';
 
 interface ContentItem {
-  type: string;
-  name: string;
+  type: 'text' | 'media';
   data: string;
+  name: string;
+  media_ref?: string;
 }
 
 interface Props {
@@ -14,10 +17,8 @@ interface Props {
 }
 
 const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
-  const BannerImg = whyChooseUsSectionData?.[7]?.data;
+  const BannerImg = whyChooseUsSectionData?.[7]?.media_ref;
   const whyChooseUsTiles = whyChooseUsSectionData?.slice(9, 13);
-  //console.log(whyChooseUsTiles);
-  
 
   return (
     <>
@@ -43,14 +44,14 @@ const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
           </button>
         </div>
 
-        <div className="w-96 h-[26rem] border-2 border-black rounded-lg rotate-[-3deg] p-1">
+        <div className="w-96 h-[26rem] border-2 border-black rounded-lg rotate-[-3deg] p-1 relative">
           {BannerImg && (
             <Image
               src={BannerImg}
-              alt="Training"
-              width={384}
-              height={416}
-              className="w-full h-full rounded-lg rotate-[3deg]"
+              alt="Training Banner"
+              fill
+              className="rounded-lg object-cover rotate-[3deg]"
+              sizes="(max-width: 768px) 100vw, 384px"
             />
           )}
         </div>
@@ -65,66 +66,27 @@ const WhyChooseUsSection: React.FC<Props> = ({ whyChooseUsSectionData }) => {
 
       {/* Features Section */}
       <div className="flex flex-col md:flex-row md:space-x-16 justify-center items-center mb-20 px-4 gap-10 flex-wrap">
-        {/* Dynamic Tiles from Props */}
         {whyChooseUsTiles &&
-          whyChooseUsTiles.map((value, index) => (
-            <div className="text-center" key={index}>
-              <div className="relative w-[150px] h-[150px]">
-                <Image
-                  src={value.data}
-                  alt={value.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 150px"
-                  className="object-contain"
-                />
+          whyChooseUsTiles.map((value, index) => {
+            const imageSrc = value.media_ref || value.data;
+
+            return (
+              <div className="text-center" key={index}>
+                <div className="relative w-[150px] h-[150px]">
+                  {imageSrc && (
+                    <Image
+                      src={imageSrc}
+                      alt={value.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 150px"
+                      className="object-contain"
+                    />
+                  )}
+                </div>
+                <p className="mt-2 text-lg font-medium">{value.name}</p>
               </div>
-              <p className="mt-2 text-lg font-medium">{value.name}</p>
-            </div>
-          ))}
-
-        {/* Static Tiles
-        <div className="text-center">
-          <div className="relative w-[150px] h-[150px]">
-            <Image
-              src="/images/TrueOpsTraining4.jpg"
-              alt="Cloud Lab"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, 150px"
-            />
-          </div>
-          <p className="mt-2 text-lg font-medium">24x7 Cloud Lab</p>
-        </div>
-
-        <div className="text-center">
-          <div className="relative w-[150px] h-[150px]">
-            <Image
-              src="/images/TrueOpsTraining3.jpg"
-              alt="Industry Mentors"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, 150px"
-            />
-          </div>
-          <p className="mt-2 text-lg font-medium">
-            Industry <br /> Mentors
-          </p>
-        </div>
-
-        <div className="text-center">
-          <div className="relative w-[150px] h-[150px]">
-            <Image
-              src="/images/TrueOpsTraining2.jpg"
-              alt="Placement Guarantee"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, 150px"
-            />
-          </div>
-          <p className="mt-2 text-lg font-medium">
-            Placement <br /> Guarantee
-          </p>
-        </div> */}
+            );
+          })}
       </div>
     </>
   );

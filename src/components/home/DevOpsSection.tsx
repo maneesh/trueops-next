@@ -4,8 +4,9 @@ import Image from 'next/image';
 import React from 'react';
 
 type ContentItem = {
-  type: 'text' | 'image';
+  type: 'text' | 'media';
   data: string;
+   media_ref:string
 };
 
 interface DevOpsSectionProps {
@@ -13,9 +14,11 @@ interface DevOpsSectionProps {
 }
 
 const DevOpsSection: React.FC<DevOpsSectionProps> = ({ data }) => {
+  //  const bgImage = data?.[0].media_ref
+  // console.log("This is bgimg 2 " ,bgImage)
   const texts = data.filter(item => item.type === 'text').map(item => item.data);
-  const image = data.find(item => item.type === 'image')?.data || '';
-
+  const image = data.find(item => item.type === 'media')?.media_ref || '';
+  // console.log(data)
   return (
     <section className="flex flex-col lg:flex-row items-center justify-between gap-10 px-6 md:px-20 py-20 bg-[url('/images/trueops9.jpg')] bg-cover text-center lg:text-left">
       {/* Text Content */}

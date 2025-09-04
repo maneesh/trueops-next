@@ -4,8 +4,9 @@ import Image from 'next/image';
 import React from 'react';
 
 type ContentItem = {
-  type: 'text' | 'image';
+  type: 'text' | 'media';
   data: string;
+    media_ref:string
 };
 
 interface DevOpsTalentBlockProps {
@@ -14,12 +15,13 @@ interface DevOpsTalentBlockProps {
 
 const DevOpsTalentBlock: React.FC<DevOpsTalentBlockProps> = ({ data }) => {
   const texts = data.filter((item) => item.type === 'text').map((item) => item.data.trim());
-  const images = data.filter((item) => item.type === 'image');
-  const image = images[0]?.data || '';
-  const rightSideImage = images[1]?.data || '';
+  const images = data.filter((item) => item.type === 'media');
+  // console.log("this is data",data)
+  const image = images[0]?.media_ref || '';
+  const rightSideImage = images[1]?.media_ref || '';
 
   const [title, descriptionTop, descriptionBottom1, descriptionBottom2, descriptionBottom3, buttonText] = texts;
-
+     
   return (
     <section className="px-6 md:px-20 py-20">
       <div className="flex flex-col lg:gap-10 lg:pl-20 ">

@@ -2,10 +2,12 @@
 import ContactSection from '@/components/contact/ContactSection';
 import MessageSection from '@/components/contact/MessageSection';
 
+
 interface ContentItem {
-  type: 'text' | 'image';
+  type: 'text' | 'media';
   data: string;
   name?: string;
+  media_ref:"string"
 }
 
 interface Props {
@@ -17,7 +19,8 @@ interface Props {
   };
 }
 
-export default function Contact({ sections }: Props) {
+export default function Contact({ sections }: Props) 
+{
   return (
     <>
       <ContactSection

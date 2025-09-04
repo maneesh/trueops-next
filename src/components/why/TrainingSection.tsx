@@ -3,17 +3,22 @@
 import React from 'react';
 
 
-type ContentItem = {
-  type: 'text' | 'image';
-  data: string;
-};
+// type ContentItem = {
+//   type: 'text' | 'media';
+//   data: string;
+//    media_ref:string
+// };
 
 interface TrainingSectionProps {
-  trainingSectionData: ContentItem[];
+  trainingSectionData: {
+    type: 'text' | 'media';
+    data: string;
+    media_ref?: string;
+  }[];
 }
 const TrainingSection:React.FC<TrainingSectionProps> = ({trainingSectionData}) => {
-  const image = trainingSectionData?.[0]?.data
-  //console.log(trainingSectionData);
+  const image = trainingSectionData?.[0]?.media_ref
+  // console.log("This is training data----->",trainingSectionData);
   return (
     <>
     <section style={{ backgroundImage: `url(${image})` }} className="w-full   bg-no-repeat bg-center  pt-10 pb-32">
