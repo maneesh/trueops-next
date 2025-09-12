@@ -21,7 +21,7 @@ export default function Footer({ footerData }: FooterProps) {
   const socialIcons = images.slice(2, 6);
 
   return (
-    <footer className="bg-black text-white px-6 py-12">
+    <footer className="bg-black text-white px-6 py-12 mt-6">
       {/* Logo */}
       <div className="flex justify-center mb-6">
         {logoImg && (

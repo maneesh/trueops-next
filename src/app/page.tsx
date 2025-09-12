@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'truops.com',
+  description: 'This is the page description',
+};
 import Head from 'next/head';
 import React from 'react';
 import '@/lib/env';
